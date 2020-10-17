@@ -1,0 +1,48 @@
+
+
+<form [formGroup]="qrCodeForm">
+
+  <table>
+    <tr>
+      <td>dinamico</td>
+      <td><input type="checkbox" formControlName="dynamic"></td>
+    </tr>
+    <tr>
+      <td>Conteudo</td>
+      <td><textarea formControlName="content"  rows="7" cols="40" maxlength="100"></textarea></td>
+    </tr>
+  </table>
+
+
+
+  <div *ngIf="qrCodeForm.value.dynamic == true" style="border: 1px solid black; width: 30%" formArrayName="customFields">
+    <div *ngFor="let customField of customFields.controls;let customFieldIndex = index;" [formGroupName]="customFieldIndex">
+      <span><input  formControlName="key" ></span>&nbsp;
+      <span><input  formControlName="value" ></span>
+    </div>
+    <input type="button" (click)="addField($event)" value="Adicionar campo"/>
+  </div>
+
+  <br/>
+
+  <input type="button" (click)="createQRCode($event)" value="gerar qrcode"/>
+
+</form>
+
+<br/>
+<br/>
+
+<p>QRCODES</p>
+<table style="border: 1px solid black;">
+  <tr>
+    <th style="border: 1px solid black;background: #F0FFF0;">uuid</th>
+    <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
+    <th style="border: 1px solid black;background: #F0FFF0;">imagem</th>
+  </tr>
+  <tr *ngFor="let qrcode of qrcodes;"  >
+    <td style="border: 1px solid black;">{{qrcode.uuid}}</td>
+    <td style="border: 1px solid black;">{{qrcode.content}}</td>
+    <td style="border: 1px solid black;"><img src="data:image/png;base64,{{qrcode.qrCodeInBase64}}" /></td>
+  </tr>
+
+</table>

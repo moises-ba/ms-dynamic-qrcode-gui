@@ -1,0 +1,19 @@
+<h3>Login</h3>
+
+<form [formGroup]="loginForm">
+  <table border="1">
+    <tr>
+      <td>Login</td>
+      <td><input formControlName="username"></td>
+    </tr>
+    <tr>
+      <td>Senha</td>
+      <td><input type="password" formControlName="password"></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <input type="button" (click)="login($event)" value="Entrar"/>
+      </td>
+    </tr>
+  </table>
+</form>

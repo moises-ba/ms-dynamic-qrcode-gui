@@ -20,7 +20,7 @@ spec:
         - name: ms-dynamic-qrcode-gui
           image: moisesba/ms-dynamic-qrcode-gui:latest
           ports:
-          - containerPort: 4200
+          - containerPort: 80
           imagePullPolicy: Always
      
 ---
@@ -36,7 +36,7 @@ spec:
     app: ms-dynamic-qrcode-gui
   ports:
   -  port: 80
-     targetPort: 4200
+     targetPort: 80
   type: ClusterIP
 
  

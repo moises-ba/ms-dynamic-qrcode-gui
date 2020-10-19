@@ -9,7 +9,7 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class LoginService {
 
-  private oauth2TokenUrl = window.location.protocol + '//' + window.location.host + '/login/token';
+  private oauth2TokenUrl = window.location.protocol + '//' + window.location.host + '/ms-dynamic-qrcode/login/token';
 
   constructor(private http: HttpClient) { }
 

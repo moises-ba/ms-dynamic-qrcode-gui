@@ -11,8 +11,8 @@ import * as uuid from 'uuid';
 export class QrcodeService {
 
   private relativePath =  window.location.protocol + '//' + window.location.host;
-  private qrcodeUrl = this.relativePath + '/qrcode/generate'
-  private qrcodesListURL = this.relativePath + '/qrcode/list'
+  private qrcodeUrl = this.relativePath + '/ms-dynamic-qrcode/qrcode/generate'
+  private qrcodesListURL = this.relativePath + '/ms-dynamic-qrcode/qrcode/list'
 
 
   constructor(private http: HttpClient) { }

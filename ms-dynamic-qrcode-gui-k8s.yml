@@ -1,0 +1,41 @@
+#necessario executar o scpript(spring-permission-read-configmap.yaml) kubectl para permitir ler do configmap para q o springboot_kubernetes_config tenha acesso ao configmap, sem isso pegamos o erro forbidden(403)
+
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: ms-dynamic-qrcode-gui
+  labels:
+    app: ms-dynamic-qrcode-gui
+spec:
+  selector:
+    matchLabels:
+      app: ms-dynamic-qrcode-gui
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ms-dynamic-qrcode-gui
+    spec:
+      containers:
+        - name: ms-dynamic-qrcode-gui
+          image: moisesba/ms-dynamic-qrcode-gui:latest
+          ports:
+          - containerPort: 4200
+     
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-dynamic-qrcode-gui
+  labels:
+    app: ms-dynamic-qrcode-gui
+spec:
+  selector:
+    app: ms-dynamic-qrcode-gui
+  ports:
+  -  port: 80
+     targetPort: 4200
+  type: ClusterIP
+
+ 

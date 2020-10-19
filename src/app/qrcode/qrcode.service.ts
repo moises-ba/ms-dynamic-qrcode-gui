@@ -10,9 +10,9 @@ import * as uuid from 'uuid';
 })
 export class QrcodeService {
 
-
-  private qrcodeUrl = 'http://localhost:8081/qrcode/generate'
-  private qrcodesListURL = 'http://localhost:8081/qrcode/list'
+  private relativePath =  window.location.protocol + '//' + window.location.host;
+  private qrcodeUrl = this.relativePath + '/qrcode/generate'
+  private qrcodesListURL = this.relativePath + '/qrcode/list'
 
 
   constructor(private http: HttpClient) { }

@@ -1,0 +1,1 @@
+docker build -t moisesba/ms-dynamic-qrcode-gui:latest .

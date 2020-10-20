@@ -3,13 +3,14 @@ import { OAuth2Response } from '../oauth2';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private oauth2TokenUrl = window.location.protocol + '//' + window.location.host + '/ms-dynamic-qrcode/login/token';
+  private oauth2TokenUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/login/token';
 
   constructor(private http: HttpClient) { }
 

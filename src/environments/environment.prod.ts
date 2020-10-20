@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  qrCodeBackendHost: window.location.protocol + '//' + window.location.host
 };

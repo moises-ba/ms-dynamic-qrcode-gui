@@ -4,15 +4,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import * as uuid from 'uuid';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class QrcodeService {
 
-  private relativePath =  window.location.protocol + '//' + window.location.host;
-  private qrcodeUrl = this.relativePath + '/ms-dynamic-qrcode/qrcode/generate'
-  private qrcodesListURL = this.relativePath + '/ms-dynamic-qrcode/qrcode/list'
+  private qrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate'
+  private qrcodesListURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/list'
 
 
   constructor(private http: HttpClient) { }

@@ -9,18 +9,22 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthIntercepton } from './auth.interceptor';
 import { LoginComponent } from './login/login.component';
+import { QrcodedetailComponent } from './qrcodedetail/qrcodedetail.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     QrcodeComponent,
-    LoginComponent
+    LoginComponent,
+    QrcodedetailComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthIntercepton, multi: true }

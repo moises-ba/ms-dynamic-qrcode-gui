@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray ,FormBuilder  } from '@angular/forms';
 import { LoginService } from './login.service'
-import { Router } from '@angular/router';
+import { Router ,  ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, of } from 'rxjs';
+
+ 
 
 @Component({
   selector: 'app-login',
@@ -16,9 +18,18 @@ export class LoginComponent implements OnInit {
       password : this.fb.control('')
     });
 
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) { }
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router,  private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+     let thisObject = this;   
+     this.route.queryParams.subscribe(params => {
+         let isLogout = params['logout'];
+         if(isLogout) {
+           thisObject.logout();
+         }
+         
+    }); 
+
   }
 
 
@@ -33,8 +44,13 @@ export class LoginComponent implements OnInit {
          alert('Falha no login.');
        }
     });
-
-
   }
+
+  logout(): void {
+      this.loginService.logout();
+  }
+
+
+
 
 }

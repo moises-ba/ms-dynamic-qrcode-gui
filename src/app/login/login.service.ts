@@ -33,5 +33,13 @@ export class LoginService {
   }
 
 
+  logout(): void {
+     localStorage.removeItem('jwt_token');
+     localStorage.removeItem('refresh_token');
+     localStorage.removeItem('jwt_refresh_token');     
+  }
+
+
+   
 
 }

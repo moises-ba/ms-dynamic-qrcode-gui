@@ -3,6 +3,7 @@ export interface QRCode {
   qrCodeInBase64?: string;
   content?: string;
   dynamic?: boolean;
+  persistentContent?: string;
   customFields?: Array<CustomField>;
 }
 

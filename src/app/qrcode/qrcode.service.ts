@@ -11,8 +11,9 @@ import { environment } from '../../environments/environment';
 })
 export class QrcodeService {
 
-  private qrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate'
+  private generateQrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate'
   private qrcodesListURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/list'
+  private findQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/'
 
 
   constructor(private http: HttpClient) { }
@@ -27,7 +28,7 @@ export class QrcodeService {
 
     qrCode.uuid = uuid.v4();
 
-    return this.http.post<QRCode>(this.qrcodeUrl, qrCode ,{ headers: headers })
+    return this.http.post<QRCode>(this.generateQrcodeUrl, qrCode ,{ headers: headers })
            .pipe(
             catchError(err => of({}))
     );
@@ -45,6 +46,19 @@ export class QrcodeService {
     );
 
   }
+
+
+  findQrCodeById(uuid: string): Observable<QRCode> {
+    let headers = new HttpHeaders({
+       'Content-type': 'application/json'
+    });
+
+     return this.http.get<QRCode>(this.findQrcodeURL + uuid ,{ headers: headers })
+           .pipe(
+            catchError(err => of({}))
+    );
+
+  } 
 
 
 }

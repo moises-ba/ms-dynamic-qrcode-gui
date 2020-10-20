@@ -1,5 +1,5 @@
 import { Component, OnInit, isDevMode } from '@angular/core';
-
+import { LoginService } from './login/login.service'
 
 @Component({
   selector: 'app-root',
@@ -8,6 +8,10 @@ import { Component, OnInit, isDevMode } from '@angular/core';
 })
 export class AppComponent implements OnInit{
   title = 'ms-dynamic-qrcode-gui';
+
+  constructor(private loginService: LoginService) {
+
+  }
 
   ngOnInit() {
 
@@ -18,6 +22,12 @@ export class AppComponent implements OnInit{
   	}
 
   }
+
+
+  get jwtToken() {
+    return this.loginService.getJwtToken() && true;
+  }
+    
  
 
 }

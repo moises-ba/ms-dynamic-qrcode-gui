@@ -1,6 +1,6 @@
 
 
-<form [formGroup]="qrCodeForm">
+<form [formGroup]="qrCodeForm" style="padding-left: 30px">
 
   <table>
     <tr>
@@ -15,13 +15,13 @@
 
 
 
-  <div *ngIf="qrCodeForm.value.dynamic == true" style="border: 1px solid black; width: 30%" formArrayName="customFields">
+  <!--div *ngIf="qrCodeForm.value.dynamic == true" style="border: 1px solid black; width: 30%" formArrayName="customFields">
     <div *ngFor="let customField of customFields.controls;let customFieldIndex = index;" [formGroupName]="customFieldIndex">
       <span><input  formControlName="key" ></span>&nbsp;
       <span><input  formControlName="value" ></span>
     </div>
     <input type="button" (click)="addField($event)" value="Adicionar campo"/>
-  </div>
+  </div-->
 
   <br/>
 
@@ -32,17 +32,24 @@
 <br/>
 <br/>
 
-<p>QRCODES</p>
-<table style="border: 1px solid black;">
-  <tr>
-    <th style="border: 1px solid black;background: #F0FFF0;">uuid</th>
-    <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
-    <th style="border: 1px solid black;background: #F0FFF0;">imagem</th>
-  </tr>
-  <tr *ngFor="let qrcode of qrcodes;"  >
-    <td style="border: 1px solid black;">{{qrcode.uuid}}</td>
-    <td style="border: 1px solid black;">{{qrcode.content}}</td>
-    <td style="border: 1px solid black;"><img src="data:image/png;base64,{{qrcode.qrCodeInBase64}}" /></td>
-  </tr>
+<div style="padding-left: 30px;">
+  <p>QRCODES</p>
+  <table style="border: 1px solid black;">
+    <tr>
+      <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
+      <th style="border: 1px solid black;background: #F0FFF0;">imagem</th>
+    </tr>
+    <tr *ngFor="let qrcode of qrcodes;"  >
+      <td style="border: 1px solid black;">
+         <a *ngIf="qrcode.dynamic === true" [routerLink]="['/qrcodedetail/' , qrcode.uuid]">{{qrcode.content}}</a>
+         <span *ngIf="qrcode.dynamic != true" >{{qrcode.content}}</span>
+      </td>
+      <td style="border: 1px solid black;">
+        <img src="data:image/png;base64,{{qrcode.qrCodeInBase64}}" />
+      </td>
+    </tr>
 
-</table>
+  </table>
+</div>
+
+ 

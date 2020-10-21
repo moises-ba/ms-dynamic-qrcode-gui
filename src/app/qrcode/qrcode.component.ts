@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray ,FormBuilder  } from '@angular/forms';
 
 import { QRCode, CustomField } from '../qrcode';
-import { QrcodeService } from './qrcode.service'
+import { QrcodeService } from './qrcode.service';
+import { FileUploadService } from '../fileupload.service'
+import { HttpEventType,HttpResponse } from '@angular/common/http';
 
 
 
@@ -24,7 +26,11 @@ export class QrcodeComponent implements OnInit {
 
   qrcodes: QRCode[] = null;
 
-  constructor(private qrcodeService: QrcodeService, private fb: FormBuilder) { }
+  fileToUpload: File = null;
+  progress = 0;
+  message = '';
+
+  constructor(private qrcodeService: QrcodeService, private fb: FormBuilder, private fileServiceUpload: FileUploadService) { }
 
   ngOnInit(): void {
       this.listQRCodes();
@@ -51,6 +57,8 @@ export class QrcodeComponent implements OnInit {
      let qrcode = {
                    dynamic: this.qrCodeForm.value.dynamic,
                    content: this.qrCodeForm.value.content,
+                   filePath: null,
+                   type: null,
                    customFields : []};
 
      for (var controlCustomField of this.customFields.controls) {
@@ -61,12 +69,41 @@ export class QrcodeComponent implements OnInit {
      }
 
 
-     this.qrcodeService.generateQRCode(qrcode).subscribe(qrcode =>{
+     let funcHandleQrcodeGeneratorResponse = function(qrcode) {
         thisObject.qrCodeForm.value.uuid =  qrcode.uuid;
         thisObject.qrCodeForm.value.qrCodeInBase64 =  qrcode.qrCodeInBase64;
         thisObject.qrCodeForm.reset();
         thisObject.listQRCodes();
-     });
+     }
+
+     if(this.fileToUpload) {
+
+        this.progress = 0;
+        this.fileServiceUpload.postFile(this.fileToUpload).subscribe(
+                event => {
+                  if (event.type === HttpEventType.UploadProgress) {
+                    this.progress = Math.round(100 * event.loaded / event.total);
+                  } else if (event instanceof HttpResponse) {
+                  //  this.message = event.body.message;
+                   // this.fileInfos = this.uploadService.getFiles();
+                   qrcode.filePath = event.body.filePath;  
+                   qrcode.type = event.body.type;  
+                   this.qrcodeService.generateQRCode(qrcode).subscribe(funcHandleQrcodeGeneratorResponse); 
+
+                   this.resetFileInput();
+                  }
+                },
+                err => {                 
+                  alert('Não foi possivel efetuar o download!');
+                  this.resetFileInput();
+                });
+
+                  
+      
+    } else {
+      this.qrcodeService.generateQRCode(qrcode).subscribe(funcHandleQrcodeGeneratorResponse);
+    }
+
   }
 
 
@@ -86,6 +123,17 @@ export class QrcodeComponent implements OnInit {
         thisObject.listQRCodes();
      });
 
+  }
+
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+
+  resetFileInput(): void {
+     this.progress = 0;
+      this.fileToUpload = null;
   }
 
 

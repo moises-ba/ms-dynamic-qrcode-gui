@@ -27,10 +27,11 @@ constructor(private http: HttpClient, private loginService: LoginService ) { }
 
 
  private addToken(request: HttpRequest<any>, token: string) {
+
     return request.clone({
       setHeaders: {
-        'Content-type': 'application/json'
-        ,'Authorization': `Bearer ${token}`
+       // 'Content-type': 'application/json',  //nao deve definir por causa do upload
+        'Authorization': `Bearer ${token}`
       }
     });
   }

@@ -13,6 +13,24 @@
     </tr>
   </table>
 
+  <div class="form-group" style="width:30%">
+    <!--label for="file">Escolha um arquivo: </label-->
+    <input type="file"
+           id="file"
+           (change)="handleFileInput($event.target.files)" value="{{fileToUpload }}">
+    <div *ngIf="fileToUpload" class="progress">
+      <div
+         class="progress-bar progress-bar-info progress-bar-striped"
+         role="progressbar"
+         attr.aria-valuenow="{{ progress }}"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         [ngStyle]="{ width: progress + '%' }">
+       {{ progress }}%
+     </div>
+    </div>       
+  </div>
+
 
 
   <!--div *ngIf="qrCodeForm.value.dynamic == true" style="border: 1px solid black; width: 30%" formArrayName="customFields">

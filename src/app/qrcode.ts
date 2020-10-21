@@ -4,6 +4,8 @@ export interface QRCode {
   content?: string;
   dynamic?: boolean;
   persistentContent?: string;
+  filePath?: string;
+  type?: string;
   customFields?: Array<CustomField>;
 }
 

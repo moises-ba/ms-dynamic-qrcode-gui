@@ -14,6 +14,7 @@ export class QrcodeService {
   private generateQrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate'
   private qrcodesListURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/list'
   private findQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/'
+  private deleteQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/'
 
 
   constructor(private http: HttpClient) { }
@@ -58,6 +59,17 @@ export class QrcodeService {
             catchError(err => of({}))
     );
 
+  }
+
+  deleteQRCode(uuid: string): Observable<any>{
+    let headers = new HttpHeaders({
+       'Content-type': 'application/json'
+    });
+
+     return this.http.delete<any>(this.deleteQrcodeURL + uuid ,{ headers: headers })
+           .pipe(
+            catchError(err => of({}))
+    );
   } 
 
 

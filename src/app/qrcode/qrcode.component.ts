@@ -76,11 +76,17 @@ export class QrcodeComponent implements OnInit {
         thisObject.qrcodes = qrcodes;
      });
 
-
-
   }
 
+  
+  delete(qrcode: QRCode): void {
+    let thisObject = this;
 
+    this.qrcodeService.deleteQRCode(qrcode.uuid).subscribe(() =>{
+        thisObject.listQRCodes();
+     });
+
+  }
 
 
 }

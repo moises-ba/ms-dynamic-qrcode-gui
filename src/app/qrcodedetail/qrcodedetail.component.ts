@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QRCode, CustomField } from '../qrcode';
 import { QrcodeService } from '../qrcode/qrcode.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-qrcodedetail',
@@ -10,7 +11,9 @@ import { QrcodeService } from '../qrcode/qrcode.service';
 })
 export class QrcodedetailComponent implements OnInit {
 
-  qrcode: QRCode = {};
+  qrcode: QRCode = {};  
+   
+
 
   constructor( private route: ActivatedRoute, private qrcodeService: QrcodeService) {}
 
@@ -20,13 +23,45 @@ export class QrcodedetailComponent implements OnInit {
          
          this.qrcodeService.findQrCodeById(params.get('uuid')).subscribe(qrcode =>{
 
-         	this.qrcode = qrcode;	
+         	this.qrcode = qrcode;
+
+          switch (qrcode.type) {
+            case "jpeg":
+            case "gif":
+            case "png":
+            case "bmp":
+            case "tiff":
+            case "psd":
+            case "exif":
+            case "raw":
+            case "eps":
+            case "svg":
+            case "webp":
+              this.qrcode.isImage  = true; 
+
+               this.qrcodeService.getFileBase64(qrcode.filePath).subscribe(fileBase64 =>{
+                  this.qrcode.fileBase64 = fileBase64;
+               });
+             
+
+              break;
+             
+            default:
+              this.qrcode.isImage  = false;
+              break;
+          }
+
+           
 
          });
 
 
     }); 
-
   }
+
+ 
+ 
+
+
 
 }

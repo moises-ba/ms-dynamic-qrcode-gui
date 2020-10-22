@@ -11,10 +11,11 @@ import { environment } from '../../environments/environment';
 })
 export class QrcodeService {
 
-  private generateQrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate'
-  private qrcodesListURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/list'
-  private findQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/'
-  private deleteQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/'
+  private generateQrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate';
+  private qrcodesListURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/list';
+  private findQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/';
+  private deleteQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/';
+  private getFileURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/file/base64?';
 
 
   constructor(private http: HttpClient) { }
@@ -71,6 +72,18 @@ export class QrcodeService {
             catchError(err => of({}))
     );
   } 
+
+
+
+
+   getFileBase64(fileName: string): Observable<any>{
+
+     return this.http.get(this.getFileURL + 'fileName=' + fileName , 
+         {responseType: 'text'})
+           .pipe(
+            catchError(err => of({})))
+
+  }
 
 
 }

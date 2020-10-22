@@ -8,13 +8,23 @@
   <tr>
     <th style="border: 1px solid black;background: #F0FFF0;">uuid</th>
     <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
+    <th style="border: 1px solid black;background: #F0FFF0;">tipo</th>
   </tr>
   <tr>
     <td style="border: 1px solid black;">{{qrcode.uuid}}</td>
     <td style="border: 1px solid black;"><pre>{{qrcode.persistentContent}}</pre></td>    
-  </tr>
+    <td style="border: 1px solid black;">{{qrcode.type}}</td>    
 </table>
 
+<br />
 <a [routerLink]="['/qrcode']">
   Voltar para a tela de listagem
 </a>
+<br />
+<br />
+
+<div *ngIf="qrcode.isImage">
+  <p>Imagem:</p>	
+  <img src="data:image/png;base64,{{qrcode.fileBase64}}" />
+</div>
+

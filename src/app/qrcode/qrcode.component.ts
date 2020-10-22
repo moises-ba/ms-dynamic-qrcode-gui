@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray ,FormBuilder  } from '@angular/forms';
 
 import { QRCode, CustomField } from '../qrcode';
@@ -29,6 +29,10 @@ export class QrcodeComponent implements OnInit {
   fileToUpload: File = null;
   progress = 0;
   message = '';
+
+
+  @ViewChild('fileUpoadInput')
+  fileUpoadInput: ElementRef;
 
   constructor(private qrcodeService: QrcodeService, private fb: FormBuilder, private fileServiceUpload: FileUploadService) { }
 
@@ -133,7 +137,8 @@ export class QrcodeComponent implements OnInit {
 
   resetFileInput(): void {
      this.progress = 0;
-      this.fileToUpload = null;
+     this.fileToUpload = null;
+     this.fileUpoadInput.nativeElement.value = "";
   }
 
 

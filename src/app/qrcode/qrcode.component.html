@@ -17,7 +17,8 @@
     <!--label for="file">Escolha um arquivo: </label-->
     <input type="file"
            id="file"
-           (change)="handleFileInput($event.target.files)" value="{{fileToUpload }}">
+           #fileUpoadInput
+           (change)="handleFileInput($event.target.files)" >
     <div *ngIf="fileToUpload" class="progress">
       <div
          class="progress-bar progress-bar-info progress-bar-striped"
@@ -28,7 +29,7 @@
          [ngStyle]="{ width: progress + '%' }">
        {{ progress }}%
      </div>
-    </div>       
+    </div>        
   </div>
 
 

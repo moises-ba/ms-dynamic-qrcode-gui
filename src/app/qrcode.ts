@@ -5,8 +5,10 @@ export interface QRCode {
   dynamic?: boolean;
   persistentContent?: string;
   filePath?: string;
+  fileBase64?: string;
   type?: string;
   customFields?: Array<CustomField>;
+  isImage?: boolean;
 }
 
 export interface CustomField {

@@ -16,6 +16,7 @@ spec:
       labels:
         app: ms-dynamic-qrcode-gui
     spec:
+      restartPolicy: Always
       containers:
         - name: ms-dynamic-qrcode-gui
           image: moisesba/ms-dynamic-qrcode-gui:latest

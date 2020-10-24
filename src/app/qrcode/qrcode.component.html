@@ -1,5 +1,5 @@
 
-<form [formGroup]="qrCodeForm">   
+<form style="padding-left: 30px;" [formGroup]="qrCodeForm">   
 
        <ngb-tabset type="pills" (tabChange)="onChangeTab($event)">
         <ngb-tab title="URL" id="url">
@@ -190,3 +190,32 @@
 
 
 </form>
+
+
+
+<br />
+<br />
+
+<div style="padding-left: 30px;">
+  <p>QRCODES</p>
+  <table style="border: 1px solid black;">
+    <tr>
+      <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
+      <th style="border: 1px solid black;background: #F0FFF0;">imagem</th>
+      <th style="border: 1px solid black;background: #F0FFF0;">&nbsp;</th>
+    </tr>
+    <tr *ngFor="let qrcode of qrcodes;"  >
+      <td style="border: 1px solid black;">
+         <a *ngIf="qrcode.dynamic === true" [routerLink]="['/qrcodedetail/' , qrcode.uuid]">{{qrcode.content}}</a>
+         <span *ngIf="qrcode.dynamic != true" ><pre>{{qrcode.content}}</pre></span>
+      </td>
+      <td style="border: 1px solid black;">
+        <img src="data:image/png;base64,{{qrcode.qrCodeInBase64}}" />
+      </td>
+        <td style="border: 1px solid black;">
+        <input type="button" value="Excluir"  (click)="delete(qrcode)" />
+      </td>
+    </tr>
+
+  </table>
+</div>

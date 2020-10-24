@@ -91,33 +91,27 @@ export class QrcodeComponent implements OnInit {
   createQRCode(event): void {
      
      let thisObject = this;
-
-     let qrcode = {
-                   dynamic: this.qrCodeForm.value.dynamic,
-                   content: this.qrCodeForm.value.content,
-                   filePath: null,
-                   type: null,
-                   customFields : []};
-
+ 
 
      this.qrcode.dynamic = false; //default false
+     let formValue = this.qrCodeForm.value;
      switch (this.qrcode.type) {
        case "vcard":
          this.qrcode.vcard = new VCardField();
-         this.qrcode.vcard.name = this.qrCodeForm.value.name;
-         this.qrcode.vcard.lastName = this.qrCodeForm.value.lastName;
-         this.qrcode.vcard.cellphone = this.qrCodeForm.value.cellphone;
-         this.qrcode.vcard.phone = this.qrCodeForm.value.phone;
-         this.qrcode.vcard.fax = this.qrCodeForm.value.fax;
-         this.qrcode.vcard.email = this.qrCodeForm.value.email;
-         this.qrcode.vcard.corporationName = this.qrCodeForm.value.corporationName;
-         this.qrcode.vcard.ocupation = this.qrCodeForm.value.ocupation;
-         this.qrcode.vcard.street = this.qrCodeForm.value.street;
-         this.qrcode.vcard.city = this.qrCodeForm.value.city;
-         this.qrcode.vcard.postalCode = this.qrCodeForm.value.postalCode;
-         this.qrcode.vcard.state = this.qrCodeForm.value.state;
-         this.qrcode.vcard.country = this.qrCodeForm.value.country;
-         this.qrcode.vcard.website = this.qrCodeForm.value.website;
+         this.qrcode.vcard.name = formValue.vcard.name;
+         this.qrcode.vcard.lastName = formValue.vcard.lastName;
+         this.qrcode.vcard.cellphone = formValue.vcard.cellphone;
+         this.qrcode.vcard.phone = formValue.vcard.phone;
+         this.qrcode.vcard.fax = formValue.vcard.fax;
+         this.qrcode.vcard.email = formValue.vcard.email;
+         this.qrcode.vcard.corporationName = formValue.vcard.corporationName;
+         this.qrcode.vcard.ocupation = formValue.vcard.ocupation;
+         this.qrcode.vcard.street = formValue.vcard.street;
+         this.qrcode.vcard.city = formValue.vcard.city;
+         this.qrcode.vcard.postalCode = formValue.vcard.postalCode;
+         this.qrcode.vcard.state = formValue.vcard.state;
+         this.qrcode.vcard.country = formValue.vcard.country;
+         this.qrcode.vcard.website = formValue.vcard.website;
 
          break;
        
@@ -128,7 +122,7 @@ export class QrcodeComponent implements OnInit {
 
 
      for (var controlCustomField of this.customFields.controls) {
-         qrcode.customFields.push({
+         this.qrcode.customFields.push({
             key : controlCustomField.value.key,
             value : controlCustomField.value.value
          });
@@ -152,9 +146,8 @@ export class QrcodeComponent implements OnInit {
                   } else if (event instanceof HttpResponse) {
                   //  this.message = event.body.message;
                    // this.fileInfos = this.uploadService.getFiles();
-                   qrcode.filePath = event.body.filePath;  
-                   qrcode.type = event.body.type;  
-                   this.qrcodeService.generateQRCode(qrcode).subscribe(funcHandleQrcodeGeneratorResponse); 
+                   this.qrcode.filePath = event.body.filePath;  
+                   this.qrcodeService.generateQRCode(this.qrcode).subscribe(funcHandleQrcodeGeneratorResponse); 
 
                    this.resetFileInput();
                   }
@@ -167,7 +160,7 @@ export class QrcodeComponent implements OnInit {
                   
       
     } else {
-      this.qrcodeService.generateQRCode(qrcode).subscribe(funcHandleQrcodeGeneratorResponse);
+      this.qrcodeService.generateQRCode(this.qrcode).subscribe(funcHandleQrcodeGeneratorResponse);
     }
 
   }

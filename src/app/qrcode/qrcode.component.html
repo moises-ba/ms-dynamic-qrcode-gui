@@ -1,78 +1,192 @@
 
+<form [formGroup]="qrCodeForm">   
 
-<form [formGroup]="qrCodeForm" style="padding-left: 30px">
+       <ngb-tabset type="pills" (tabChange)="onChangeTab($event)">
+        <ngb-tab title="URL" id="url">
+          <ng-template ngbTabContent> 
+            <div>
+             URL: <input type="text" formControlName="url">
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="VCARD" id="vcard">
+          <ng-template ngbTabContent>
+             <table formGroupName="vcard" >
+                <tr>
+                 <td>Nome:</td>           
+                 <td> <input type="text" formControlName="name" /> </td>
+                </tr>
+                <tr>
+                 <td>Sobrenome:</td>  
+                 <td> <input type="text" formControlName="lastName" /> </td>    
+                </tr>
+                <tr>
+                 <td>Celular:</td>  
+                 <td> <input type="text" formControlName="cellphone" /> </td>
+                </tr>
+                <tr>
+                 <td>Telefone Fixo:</td>  
+                 <td> <input type="text" formControlName="phone" /> </td>
+                </tr>
+                <tr>
+                 <td>Fax:</td>            
+                 <td> <input type="text" formControlName="fax" /> </td>
+                </tr>
+                <tr>
+                 <td>E-mail:</td>         
+                 <td> <input type="text" formControlName="email" /> </td>
+                </tr>
+                <tr>
+                 <td>Empresa:</td>        
+                 <td> <input type="text" formControlName="corporationName" /> </td>
+                </tr>
+                <tr>
+                 <td>Cargo:</td>        
+                 <td> <input type="text" formControlName="ocupation" /> </td>
+                </tr>                
+                <tr>
+                <td>Rua:</td>            
+                 <td> <input type="text" formControlName="street" /> </td>
+                 </tr>
+                <tr>
+                 <td>Cidade:</td>         
+                 <td> <input type="text" formControlName="city" /> </td>
+                </tr>
+                <tr>
+                 <td>CEP:</td>            
+                 <td> <input type="text" formControlName="postalCode" /> </td> 
+                </tr>
+                <tr>
+                 <td>Estado:</td>         
+                 <td> <input type="text" formControlName="state" /> </td>
+                </tr>
+                <tr>
+                 <td>Cidade:</td>         
+                 <td> <input type="text" formControlName="country" /> </td>
+                </tr>
+                <tr>
+                 <td>Website:</td>         
+                 <td> <input type="text" formControlName="website" /> </td>
+                </tr>   
+             </table>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="TEXTO" id="text">
+          <ng-template ngbTabContent>
+             <div>
+             Texto: <textarea formControlName="text" rows="4" cols="50"></textarea>
+            </div>
+          </ng-template>
+        </ngb-tab>
+        <ngb-tab title="EMAIL" id="email">
+          <ng-template ngbTabContent>
+            <div>
+             E-mail: <input type="text" formControlName="email">
+            </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="SMS"  id="sms">
+          <ng-template ngbTabContent>
+            <div>
+             SMS:
+           </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="WIFI" id="wifi">
+          <ng-template ngbTabContent>
+            <div>
+             WIFI:
+            </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="BITCOIN" id="bitcoin">
+          <ng-template ngbTabContent>
+            <div>
+             BitCoin:
+            </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="TWITTER" id="twitter">
+          <ng-template ngbTabContent>
+            <div>
+             Twitter:
+            </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="FACEBOOK" id="facebook">
+          <ng-template ngbTabContent>
+            <div>
+             Facebook:
+            </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="PDF" id="pdf">
+          <ng-template ngbTabContent>
+            <p>PDF.</p>
+              <div class="form-group" style="width:30%">        
+                <input type="file"
+                       id="file_pdf"
+                       #fileUpoadInput
+                       (change)="handleFileInput($event.target.files)" >
+                <div *ngIf="fileToUpload" class="progress">
+                  <div
+                     class="progress-bar progress-bar-info progress-bar-striped"
+                     role="progressbar"
+                     attr.aria-valuenow="{{ progress }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     [ngStyle]="{ width: progress + '%' }">
+                   {{ progress }}%
+                 </div>
+                </div>        
+              </div>
 
-  <table>
-    <tr>
-      <td>dinamico</td>
-      <td><input type="checkbox" formControlName="dynamic"></td>
-    </tr>
-    <tr>
-      <td>Conteudo</td>
-      <td><textarea formControlName="content"  rows="7" cols="40" maxlength="100"></textarea></td>
-    </tr>
-  </table>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="MP3" id="mp3">
+          <ng-template ngbTabContent>
+                  <p>MP3.</p>
+              <div class="form-group" style="width:30%">        
+                <input type="file"
+                       id="file_mp3"
+                       #fileUpoadInput
+                       (change)="handleFileInput($event.target.files)" >
+                <div *ngIf="fileToUpload" class="progress">
+                  <div
+                     class="progress-bar progress-bar-info progress-bar-striped"
+                     role="progressbar"
+                     attr.aria-valuenow="{{ progress }}"
+                     aria-valuemin="0"
+                     aria-valuemax="100"
+                     [ngStyle]="{ width: progress + '%' }">
+                   {{ progress }}%
+                 </div>
+                </div>        
+              </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="APP STORES" id="appstores">
+          <ng-template ngbTabContent>
+            <div>
+             APP Stores:
+            </div>
+          </ng-template>
+        </ngb-tab>
+         <ngb-tab title="GALERIA DE FOTOS" id="photos">
+          <ng-template ngbTabContent>
+            <div>
+             Galeria de fotos:
+            </div>
+          </ng-template>
+        </ngb-tab>
+      </ngb-tabset>
 
-  <div class="form-group" style="width:30%">
-    <!--label for="file">Escolha um arquivo: </label-->
-    <input type="file"
-           id="file"
-           #fileUpoadInput
-           (change)="handleFileInput($event.target.files)" >
-    <div *ngIf="fileToUpload" class="progress">
-      <div
-         class="progress-bar progress-bar-info progress-bar-striped"
-         role="progressbar"
-         attr.aria-valuenow="{{ progress }}"
-         aria-valuemin="0"
-         aria-valuemax="100"
-         [ngStyle]="{ width: progress + '%' }">
-       {{ progress }}%
-     </div>
-    </div>        
-  </div>
+      <br />
+      <br />
+      <br />
 
 
+      <input type="button" name="btnGerarQRCode"(click)="createQRCode($event)" value="Gerar QRCode"/>
 
-  <!--div *ngIf="qrCodeForm.value.dynamic == true" style="border: 1px solid black; width: 30%" formArrayName="customFields">
-    <div *ngFor="let customField of customFields.controls;let customFieldIndex = index;" [formGroupName]="customFieldIndex">
-      <span><input  formControlName="key" ></span>&nbsp;
-      <span><input  formControlName="value" ></span>
-    </div>
-    <input type="button" (click)="addField($event)" value="Adicionar campo"/>
-  </div-->
-
-  <br/>
-
-  <input type="button" (click)="createQRCode($event)" value="gerar qrcode"/>
 
 </form>
-
-<br/>
-<br/>
-
-<div style="padding-left: 30px;">
-  <p>QRCODES</p>
-  <table style="border: 1px solid black;">
-    <tr>
-      <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
-      <th style="border: 1px solid black;background: #F0FFF0;">imagem</th>
-      <th style="border: 1px solid black;background: #F0FFF0;">&nbsp;</th>
-    </tr>
-    <tr *ngFor="let qrcode of qrcodes;"  >
-      <td style="border: 1px solid black;">
-         <a *ngIf="qrcode.dynamic === true" [routerLink]="['/qrcodedetail/' , qrcode.uuid]">{{qrcode.content}}</a>
-         <span *ngIf="qrcode.dynamic != true" >{{qrcode.content}}</span>
-      </td>
-      <td style="border: 1px solid black;">
-        <img src="data:image/png;base64,{{qrcode.qrCodeInBase64}}" />
-      </td>
-        <td style="border: 1px solid black;">
-        <input type="button" value="Excluir"  (click)="delete(qrcode)" />
-      </td>
-    </tr>
-
-  </table>
-</div>
-
- 

@@ -86,6 +86,16 @@ export class QrcodeService {
   }
 
 
+  downloadFile(fileName: string): Observable<any>{
+
+     return this.http.get(this.getFileURL + 'fileName=' + fileName , 
+         {responseType: 'arraybuffer'})
+           .pipe(
+            catchError(err => of({})))
+
+  }
+
+
 }
 
 

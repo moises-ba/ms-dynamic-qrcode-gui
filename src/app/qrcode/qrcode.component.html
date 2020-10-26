@@ -11,7 +11,7 @@
         </ngb-tab>
         <ngb-tab title="VCARD" id="vcard">
           <ng-template ngbTabContent>
-             <table formGroupName="vcard" >
+              <table formGroupName="vcard" >
                 <tr>
                  <td>Nome:</td>           
                  <td> <input type="text" formControlName="name" /> </td>
@@ -61,7 +61,7 @@
                  <td> <input type="text" formControlName="state" /> </td>
                 </tr>
                 <tr>
-                 <td>Cidade:</td>         
+                 <td>País:</td>         
                  <td> <input type="text" formControlName="country" /> </td>
                 </tr>
                 <tr>
@@ -80,8 +80,21 @@
         </ngb-tab>
         <ngb-tab title="EMAIL" id="email">
           <ng-template ngbTabContent>
+             <table formGroupName="email" >
+               <tr>
+                 <td>E-mail: </td>
+                 <td><input type="text" formControlName="email"></td>
+               </tr>
+               <tr>
+                 <td>Assunto: </td>
+                 <td><input type="text" formControlName="subject"></td>
+               </tr>
+               <tr>
+                 <td>Mensagem: </td>
+                 <td><textarea formControlName="message" rows="4" cols="50"></textarea></td>
+               </tr>
+             </table>
             <div>
-             E-mail: <input type="text" formControlName="email">
             </div>
           </ng-template>
         </ngb-tab>
@@ -201,6 +214,7 @@
   <table style="border: 1px solid black;">
     <tr>
       <th style="border: 1px solid black;background: #F0FFF0;">conteudo</th>
+      <th style="border: 1px solid black;background: #F0FFF0;">Tipo</th>
       <th style="border: 1px solid black;background: #F0FFF0;">imagem</th>
       <th style="border: 1px solid black;background: #F0FFF0;">&nbsp;</th>
     </tr>
@@ -208,6 +222,9 @@
       <td style="border: 1px solid black;">
          <a *ngIf="qrcode.dynamic === true" [routerLink]="['/qrcodedetail/' , qrcode.uuid]">{{qrcode.content}}</a>
          <span *ngIf="qrcode.dynamic != true" ><pre>{{qrcode.content}}</pre></span>
+      </td>
+      <td style="border: 1px solid black;">
+        <div>{{qrcode.type}}</div> 
       </td>
       <td style="border: 1px solid black;">
         <img src="data:image/png;base64,{{qrcode.qrCodeInBase64}}" />

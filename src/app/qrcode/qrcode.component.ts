@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormArray ,FormBuilder  } from '@angular/forms';
 
-import { QRCode, CustomField, VCardField } from '../qrcode';
+import { QRCode, CustomField, VCardField ,EmailField } from '../qrcode';
 import { QrcodeService } from './qrcode.service';
 import { FileUploadService } from '../fileupload.service'
 import { HttpEventType,HttpResponse } from '@angular/common/http';
@@ -22,9 +22,7 @@ export class QrcodeComponent implements OnInit {
     content : this.fb.control(''),
     qrCodeInBase64 : this.fb.control(''),
     customFields: this.fb.array([]),
-
-    url: this.fb.control(''),
-    text: this.fb.control(''),
+    
     vcard: this.fb.group({
          name: this.fb.control(''),
          lastName: this.fb.control(''),
@@ -39,10 +37,17 @@ export class QrcodeComponent implements OnInit {
          postalCode:  this.fb.control(''),
          state:  this.fb.control(''),
          country:  this.fb.control(''),
-         website:  this.fb.control('')     
+         website:  this.fb.control('')       
     }),
     
-
+    url: this.fb.control(''),
+    text: this.fb.control(''),
+    email: this.fb.group({
+       email: this.fb.control(''),
+       subject: this.fb.control(''),
+       message: this.fb.control('')
+    })
+   
    // email?: EmailField;
    // wifi?: WIFIField;
   //  bitcoin?: BitCoinField;
@@ -91,6 +96,11 @@ export class QrcodeComponent implements OnInit {
   createQRCode(event): void {
      
      let thisObject = this;
+
+
+     if(!this.qrcode.type){
+       this.qrcode.type = 'url'; //default(primeiro item da aba)
+     }
  
 
      this.qrcode.dynamic = false; //default false
@@ -114,7 +124,22 @@ export class QrcodeComponent implements OnInit {
          this.qrcode.vcard.website = formValue.vcard.website;
 
          break;
+
+       case "url":
+         this.qrcode.url = formValue.url;
+         break;   
        
+       case "text":
+         this.qrcode.text = formValue.text;
+         break;   
+
+       case "email":
+         this.qrcode.email = new EmailField();
+         this.qrcode.email.email = formValue.email.email;
+         this.qrcode.email.subject = formValue.email.subject;
+         this.qrcode.email.message = formValue.email.message;
+         break;   
+
        default:
          // code...
          break;

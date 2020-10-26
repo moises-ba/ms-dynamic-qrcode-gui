@@ -12,7 +12,7 @@
   </tr>
   <tr>
     <td style="border: 1px solid black;">{{qrcode.uuid}}</td>
-    <td style="border: 1px solid black;"><pre>{{qrcode.persistentContent}}</pre></td>    
+    <td style="border: 1px solid black;"><pre>{{qrcode.content}}</pre></td>    
     <td style="border: 1px solid black;">{{qrcode.type}}</td>    
 </table>
 
@@ -23,8 +23,13 @@
 <br />
 <br />
 
-<div *ngIf="qrcode.isImage">
+<div *ngIf="qrcode.fileBase64">
   <p>Imagem:</p>	
   <img src="data:image/png;base64,{{qrcode.fileBase64}}" />
+</div>
+
+<div *ngIf="qrcode.filePath">
+  <div>Arquivo:</div>
+  <a href="#" onclick="return false;" (click)="download(qrcode.filePath)">{{qrcode.filePath.substring(qrcode.filePath.lastIndexOf('/') + 1)}}</a>
 </div>
 

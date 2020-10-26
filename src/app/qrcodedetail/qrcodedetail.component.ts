@@ -13,6 +13,7 @@ export class QrcodedetailComponent implements OnInit {
 
   qrcode: QRCode = {};  
    
+ 
 
 
   constructor( private route: ActivatedRoute, private qrcodeService: QrcodeService) {}
@@ -61,7 +62,26 @@ export class QrcodedetailComponent implements OnInit {
 
  
  
+  download(fileName: string): void {
+    
+     this.qrcodeService.downloadFile(fileName).subscribe(data => {
 
+
+        let blob = new Blob([data], { type: "application/octet-stream"});
+
+        fileName = fileName.substr(fileName.lastIndexOf('/')+1);    
+        let downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.setAttribute('download', fileName);
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+
+   
+        document.body.removeChild(downloadLink);
+     });
+
+
+  }
 
 
 }

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  qrCodeBackendHost: 'http://localhost:8081'
+  qrCodeBackendHost: 'http://localhost:8081',
+  keycloakHost: 'http://localhost:8080',
 };
 
 /*

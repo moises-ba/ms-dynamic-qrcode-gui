@@ -28,6 +28,18 @@ export class LoginService {
 
   }
 
+  loginByAuthorizationCode(authorizationCode: string): Observable<OAuth2Response>{
+
+    let headers = new HttpHeaders({
+       'Content-type': 'application/json'
+    });
+
+    let param = {"authorizationCode" : authorizationCode, "redirectURI" : window.location.href.split('\?')[0]};
+
+    return this.http.post<OAuth2Response>(this.oauth2TokenUrl, param ,{ headers: headers }).pipe(
+            catchError(err => of({})));
+  }
+
   getJwtToken() {
     return localStorage.getItem('jwt_token');
   }

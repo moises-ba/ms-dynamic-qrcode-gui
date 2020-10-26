@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormArray ,FormBuilder  } from '@angular/forms'
 import { LoginService } from './login.service'
 import { Router ,  ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable, of } from 'rxjs';
-
+import { environment } from '../../environments/environment';
  
 
 @Component({
@@ -26,28 +26,70 @@ export class LoginComponent implements OnInit {
          let isLogout = params['logout'];
          if(isLogout) {
            thisObject.logout();
+         } else if(params['code']){
+
+            let authorizationCode = params['code'];//parametro vindo do keycloak para solicitar o access_token
+            if(authorizationCode) {
+                this.loginByAuthorizationCode(authorizationCode);
+            }
+
+         } else {
+           let urlLogin  = this.urlLogin();
+           console.log(urlLogin);
+           this.loginService.logout();
+          //caso nao tenha parametros, manda para a tela de login do keycloak
+           window.location.href = this.urlLogin();
+
          }
+
          
     }); 
 
   }
 
 
-  login(event): void {
-    let thisObject = this;
-    this.loginService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(oauthResponse =>{
-       localStorage.setItem('jwt_token', oauthResponse.access_token);
+  urlLogin(): string{
+    let baseURL = window.location.protocol + '//' + window.location.host;
+    return  environment.keycloakHost
+            + '/auth/realms/principal/protocol/openid-connect/logout?redirect_uri='
+            + environment.keycloakHost
+            + '/auth/realms/principal/protocol/openid-connect/auth?response_type=code%26client_id=ms-dynamic-qrcode%26scope=openid%26redirect_uri='
+            + baseURL + '/login';
+  }
+
+
+  handleCallBackLogin(oauthResponse) {
+      localStorage.setItem('jwt_token', oauthResponse.access_token);
        localStorage.setItem('jwt_refresh_token', oauthResponse.refresh_token);
        if(oauthResponse.access_token){
-         thisObject.router.navigate(['/qrcode']);
+         this.router.navigate(['/qrcode']);
        } else {
          alert('Falha no login.');
        }
+    }
+  
+
+
+  login(event): void {
+    
+    this.loginService.login(this.loginForm.value.username, this.loginForm.value.password)
+                     .subscribe(oauthResponse =>{
+                          this.handleCallBackLogin(oauthResponse);
+                     });
+    
+  }
+
+
+  loginByAuthorizationCode(authorizationCode: string): void {
+    let thisObject = this;
+    this.loginService.loginByAuthorizationCode(authorizationCode).subscribe(oauthResponse =>{
+        this.handleCallBackLogin(oauthResponse);
     });
   }
 
   logout(): void {
       this.loginService.logout();
+      window.location.href = this.urlLogin();
   }
 
 

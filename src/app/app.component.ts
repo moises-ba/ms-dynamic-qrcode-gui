@@ -28,6 +28,8 @@ export class AppComponent implements OnInit{
     return this.loginService.getJwtToken() && true;
   }
     
- 
+  get jwtDecoded() {
+    return this.loginService.decodePayloadJWT();
+  }  
 
 }

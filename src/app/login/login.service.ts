@@ -5,6 +5,8 @@ import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
+import jwt_decode from 'jwt-decode';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -42,6 +44,20 @@ export class LoginService {
 
   getJwtToken() {
     return localStorage.getItem('jwt_token');
+  }
+
+  public decodePayloadJWT(): any {
+    try {
+      let jwtToken = this.getJwtToken();
+      if(jwtToken){
+        return jwt_decode(jwtToken);
+      }
+
+      return null;
+    } catch (e) {
+      console.log(e);
+      return null;
+    }
   }
 
 

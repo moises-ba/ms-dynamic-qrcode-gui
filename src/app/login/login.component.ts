@@ -22,28 +22,31 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
      let thisObject = this;   
-     this.route.queryParams.subscribe(params => {
-         let isLogout = params['logout'];
-         if(isLogout) {
-           thisObject.logout();
-         } else if(params['code']){
+     let parameterValue = null;
 
-            let authorizationCode = params['code'];//parametro vindo do keycloak para solicitar o access_token
-            if(authorizationCode) {
-                this.loginByAuthorizationCode(authorizationCode);
-            }
 
-         } else {
-           let urlLogin  = this.urlLogin();
-           console.log(urlLogin);
-           this.loginService.logout();
-          //caso nao tenha parametros, manda para a tela de login do keycloak
-           window.location.href = this.urlLogin();
+     parameterValue = this.route.snapshot.queryParamMap.get("logout");
+     if(parameterValue) {
+        thisObject.logout();
+        return;
+     } 
 
-         }
+     parameterValue = this.route.snapshot.queryParamMap.get("code");
+      if(parameterValue){
+        //parametro vindo do keycloak para solicitar o access_token
+        this.loginByAuthorizationCode(parameterValue);
+        return;
+      }
 
-         
-    }); 
+      //se nao tiver parametro vai para a pagina de login do keycloak
+      let urlLogin  = this.urlLogin();
+      console.log(urlLogin);
+      this.loginService.logout();
+      //caso nao tenha parametros, manda para a tela de login do keycloak
+      window.location.href = this.urlLogin();
+      
+
+ 
 
   }
 

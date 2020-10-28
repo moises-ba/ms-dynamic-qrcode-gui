@@ -11,13 +11,15 @@ import { AuthIntercepton } from './auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { QrcodedetailComponent } from './qrcodedetail/qrcodedetail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HomeComponent } from './home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QrcodeComponent,
     LoginComponent,
-    QrcodedetailComponent
+    QrcodedetailComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

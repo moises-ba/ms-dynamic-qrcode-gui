@@ -4,13 +4,26 @@ import { LoginComponent } from './login/login.component';
 import { QrcodeComponent } from './qrcode/qrcode.component';
 import { AuthGuardService } from './auth-guard.service';
 import { QrcodedetailComponent } from './qrcodedetail/qrcodedetail.component';
+import { HomeComponent } from './home.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'qrcode', component: QrcodeComponent, canActivate: [AuthGuardService]},
-  { path: 'qrcodedetail/:uuid', component: QrcodedetailComponent, canActivate: [AuthGuardService]},
-  
+  { path: 'qrcode', component: HomeComponent,
+    children: [
+      {
+        path: '', 
+        component: QrcodeComponent,
+        canActivate: [AuthGuardService] 
+      },
+      {
+        path: 'detail/:uuid', 
+        component: QrcodedetailComponent, 
+        canActivate: [AuthGuardService]
+      }
+    ], 
+  },
+
 
   { path: '', redirectTo: '/login', pathMatch : 'full' }
 ];

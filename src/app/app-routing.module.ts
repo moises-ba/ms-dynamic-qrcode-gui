@@ -5,6 +5,7 @@ import { QrcodeComponent } from './qrcode/qrcode.component';
 import { AuthGuardService } from './auth-guard.service';
 import { QrcodedetailComponent } from './qrcodedetail/qrcodedetail.component';
 import { HomeComponent } from './home.component';
+import { QrcodelistComponent } from './qrcodelist/qrcodelist.component';
 
 
 const routes: Routes = [
@@ -17,9 +18,15 @@ const routes: Routes = [
         canActivate: [AuthGuardService] 
       },
       {
+        path: 'list', 
+        component: QrcodelistComponent,
+        canActivate: [AuthGuardService] 
+      },
+      {
         path: ':uuid', 
         component: QrcodedetailComponent
-      }
+      }, 
+      
     ], 
   },
 

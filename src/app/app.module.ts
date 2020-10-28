@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { QrcodedetailComponent } from './qrcodedetail/qrcodedetail.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home.component';
+import { QrcodelistComponent } from './qrcodelist/qrcodelist.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -19,14 +22,17 @@ import { HomeComponent } from './home.component';
     QrcodeComponent,
     LoginComponent,
     QrcodedetailComponent,
-    HomeComponent
+    HomeComponent,
+    QrcodelistComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    BrowserAnimationsModule,
+    MatMenuModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthIntercepton, multi: true }

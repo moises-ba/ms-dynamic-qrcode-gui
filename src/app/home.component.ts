@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService} from './login/login.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { LoginService} from './login/login.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   ngOnInit(): void {
   }
@@ -23,6 +24,11 @@ export class HomeComponent implements OnInit {
   get jwtDecoded() {
     return this.loginService.decodePayloadJWT();
   }  
+
+
+  navigate(to: string): void {
+    this.router.navigate([to]);
+  } 
 
 
 }

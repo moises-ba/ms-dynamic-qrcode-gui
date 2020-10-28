@@ -5,7 +5,7 @@ import { QRCode, CustomField, VCardField ,EmailField } from '../qrcode';
 import { QrcodeService } from './qrcode.service';
 import { FileUploadService } from '../fileupload.service'
 import { HttpEventType,HttpResponse } from '@angular/common/http';
-import {NgbTabChangeEvent} from '@ng-bootstrap/ng-bootstrap';
+import { NgbTabChangeEvent } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -62,7 +62,8 @@ export class QrcodeComponent implements OnInit {
 
 
   qrcode: QRCode = {};
-  qrcodes: QRCode[] = null;
+  qrcodeGenerated: QRCode = null;
+  
 
   fileToUpload: File = null;
   progress = 0;
@@ -75,7 +76,7 @@ export class QrcodeComponent implements OnInit {
   constructor(private qrcodeService: QrcodeService, private fb: FormBuilder, private fileServiceUpload: FileUploadService) { }
 
   ngOnInit(): void {
-      this.listQRCodes();
+       
   }
 
   get customFields() {
@@ -154,11 +155,10 @@ export class QrcodeComponent implements OnInit {
      }
 
 
+     //funcao guardada em variavel para tratar o retorno
      let funcHandleQrcodeGeneratorResponse = function(qrcode) {
-        thisObject.qrCodeForm.value.uuid =  qrcode.uuid;
-        thisObject.qrCodeForm.value.qrCodeInBase64 =  qrcode.qrCodeInBase64;
-        thisObject.qrCodeForm.reset();
-        thisObject.listQRCodes();
+       thisObject.qrCodeForm.reset();
+       thisObject.qrcodeGenerated = qrcode;
      }
 
      if(this.fileToUpload) {
@@ -190,24 +190,6 @@ export class QrcodeComponent implements OnInit {
 
   }
 
-
-  listQRCodes(): void {
-      let thisObject = this;
-      this.qrcodeService.listQRCodes().subscribe(qrcodes =>{
-        thisObject.qrcodes = qrcodes;
-     });
-
-  }
-
-  
-  delete(qrcode: QRCode): void {
-    let thisObject = this;
-
-    this.qrcodeService.deleteQRCode(qrcode.uuid).subscribe(() =>{
-        thisObject.listQRCodes();
-     });
-
-  }
 
 
   handleFileInput(files: FileList) {

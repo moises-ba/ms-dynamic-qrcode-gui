@@ -1,3 +1,4 @@
+
 export interface QRCode {
   uuid?:string;
   qrCodeInBase64?: string;
@@ -9,8 +10,6 @@ export interface QRCode {
   type?: string;
   customFields?: Array<CustomField>;
   isImage?: boolean;
-
-
   
   url?: string;
   text?: string;

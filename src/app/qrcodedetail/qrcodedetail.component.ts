@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { QRCode, CustomField } from '../qrcode';
 import { QrcodeService } from '../qrcode/qrcode.service';
 import { environment } from '../../environments/environment';
+import { LoginService } from '../login/login.service'
 
 @Component({
   selector: 'app-qrcodedetail',
@@ -16,7 +17,7 @@ export class QrcodedetailComponent implements OnInit {
  
 
 
-  constructor( private route: ActivatedRoute, private qrcodeService: QrcodeService) {}
+  constructor( private route: ActivatedRoute, private qrcodeService: QrcodeService, private loginService: LoginService) {}
 
   ngOnInit(): void {
 
@@ -58,6 +59,10 @@ export class QrcodedetailComponent implements OnInit {
 
 
     }); 
+  }
+
+  get jwtToken(): string {
+    return this.loginService.getJwtToken();
   }
 
  

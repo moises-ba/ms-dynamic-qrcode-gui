@@ -17,7 +17,7 @@
 </table>
 
 <br />
-<a [routerLink]="['/qrcode']">
+<a *ngIf="jwtToken" [routerLink]="['/qrcode']">
   Voltar para a tela de listagem
 </a>
 <br />

@@ -17,9 +17,8 @@ const routes: Routes = [
         canActivate: [AuthGuardService] 
       },
       {
-        path: 'detail/:uuid', 
-        component: QrcodedetailComponent, 
-        canActivate: [AuthGuardService]
+        path: ':uuid', 
+        component: QrcodedetailComponent
       }
     ], 
   },

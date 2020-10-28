@@ -220,7 +220,7 @@
     </tr>
     <tr *ngFor="let qrcode of qrcodes;"  >
       <td style="border: 1px solid black;">
-         <a *ngIf="qrcode.dynamic === true" [routerLink]="['/qrcode/detail/' , qrcode.uuid]">{{qrcode.content}}</a>
+         <a *ngIf="qrcode.dynamic === true" [routerLink]="['/qrcode/' , qrcode.uuid]">{{qrcode.content}}</a>
          <span *ngIf="qrcode.dynamic != true" ><pre>{{qrcode.content}}</pre></span>
       </td>
       <td style="border: 1px solid black;">

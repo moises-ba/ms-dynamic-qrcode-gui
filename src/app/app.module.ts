@@ -15,6 +15,7 @@ import { HomeComponent } from './home.component';
 import { QrcodelistComponent } from './qrcodelist/qrcodelist.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { MatMenuModule } from '@angular/material/menu';
     ReactiveFormsModule,
     NgbModule,
     BrowserAnimationsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSliderModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthIntercepton, multi: true }

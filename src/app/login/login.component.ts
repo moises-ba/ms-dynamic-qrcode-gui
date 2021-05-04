@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
             + '/auth/realms/principal/protocol/openid-connect/logout?redirect_uri='
             + environment.keycloakHost
             + '/auth/realms/principal/protocol/openid-connect/auth?response_type=code%26client_id=ms-dynamic-qrcode%26scope=openid%26redirect_uri='
-            + baseURL + '/login';
+            + baseURL + '/login?callback';
   }
 
 

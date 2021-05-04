@@ -12,7 +12,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class LoginService {
 
-  private oauth2TokenUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/login/token';
+  private oauth2TokenUrl = environment.keycloakHost + environment.keycloakAuthToken;
 
   constructor(private http: HttpClient) { }
 
@@ -32,15 +32,22 @@ export class LoginService {
 
   loginByAuthorizationCode(authorizationCode: string): Observable<OAuth2Response>{
 
-    let headers = new HttpHeaders({
-       'Content-type': 'application/json'
-    });
+        let headers = new HttpHeaders({
+                'Content-type': 'application/x-www-form-urlencoded'
+              });
+    
+        let param =  "code=" + authorizationCode 
+                    + "&redirect_uri=" + window.location.href.split('\?')[0] + "?callback"
+                    + "&client_id=" + environment.oauth2ClientID
+                    + "&client_secret=" + environment.oauth2ClientPassword
+                    + "&grant_type=authorization_code"
+                    + "&code=" + authorizationCode;
 
-    let param = {"authorizationCode" : authorizationCode, "redirectURI" : window.location.href.split('\?')[0]};
+    
+        return this.http.post<OAuth2Response>(this.oauth2TokenUrl, param,{ headers: headers }).pipe(
+                catchError(err => of({})));
 
-    return this.http.post<OAuth2Response>(this.oauth2TokenUrl, param ,{ headers: headers }).pipe(
-            catchError(err => of({})));
-  }
+ }
 
   getJwtToken() {
     return localStorage.getItem('jwt_token');

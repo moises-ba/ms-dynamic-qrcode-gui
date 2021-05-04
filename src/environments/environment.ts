@@ -6,6 +6,10 @@ export const environment = {
   production: false,
   qrCodeBackendHost: 'http://localhost:8081',
   keycloakHost: 'http://localhost:8080',
+  keycloakAuthToken : '/auth/realms/principal/protocol/openid-connect/token',
+  oauth2ClientID : "ms-dynamic-qrcode",
+  oauth2ClientPassword : ""
+  
 };
 
 /*

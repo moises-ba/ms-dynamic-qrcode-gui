@@ -1,6 +1,6 @@
 
 
-<div *ngIf="jwtToken"  style="width: 100%;text-align: center;vertical-align: center;border : 1px solid black;">
+<div *ngIf="jwtToken"  style="width: 100%;text-align: center;vertical-align: center;">
 
 	<table width="100%">
 		<tr>
@@ -18,9 +18,9 @@
     <div style="width: 100%;text-align: left;">
        	<button mat-button [matMenuTriggerFor]="menu">Menu</button>
 		<mat-menu #menu="matMenu">
-	    <button mat-menu-item (click)="navigate('/qrcode/list')">Meus QRCodes</button>
-	    <button mat-menu-item (click)="navigate('/qrcode')">Incluir QRCode</button>
-  	   </mat-menu> 
+	      <button mat-menu-item (click)="navigate('/qrcode/list')">Meus QRCodes</button>
+	      <button mat-menu-item (click)="navigate('/qrcode')">Incluir QRCode</button>
+  	    </mat-menu> 
     </div> 	
 	
 

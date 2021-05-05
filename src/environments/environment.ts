@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  qrCodeBackendHost: 'http://localhost:8081',
+  qrCodeBackendHost: 'http://localhost:8081', //utilizando proxy(http://localhost:4200/api), configurado no proxy.config.json "ng serve --proxy-config proxy.config.js"
   keycloakHost: 'http://localhost:8080',
   keycloakAuthToken : '/auth/realms/principal/protocol/openid-connect/token',
   oauth2ClientID : "ms-dynamic-qrcode",

@@ -178,7 +178,7 @@ export class QrcodeComponent implements OnInit {
                   }
                 },
                 err => {                 
-                  alert('Não foi possivel efetuar o download!');
+                  alert('Não foi possivel efetuar o upload!');
                   this.resetFileInput();
                 });
 

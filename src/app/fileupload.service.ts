@@ -14,7 +14,7 @@ export class FileUploadService {
   private generateQrcodeUrl = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/generate'
   private qrcodesListURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/list'
   private findQrcodeURL = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/qrcode/'
-  private urlUpload = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/file/upload/'
+  private urlUpload = environment.qrCodeBackendHost + '/ms-dynamic-qrcode/file/uploadFile'
 
 
   constructor(private http: HttpClient) { }
@@ -22,15 +22,16 @@ export class FileUploadService {
 
   postFile(fileToUpload: File): Observable<HttpEvent<any>> {
  
-    const formData: FormData = new FormData();
-    
+    const formData: FormData = new FormData();   
+
+  
 
     formData.append('file', fileToUpload); 
     return this.http.post(this.urlUpload, formData, {  
       reportProgress: true,  
       observe: 'events',
-      responseType: 'json'
-    });  
+      responseType: 'json',
+    } );  
 
 
  }

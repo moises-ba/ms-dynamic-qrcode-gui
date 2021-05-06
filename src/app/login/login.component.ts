@@ -38,28 +38,11 @@ export class LoginComponent implements OnInit {
         return;
       }
 
-      //se nao tiver parametro vai para a pagina de login do keycloak
-      let urlLogin  = this.urlLogin();
-      console.log(urlLogin);
-      this.loginService.logout();
-      //caso nao tenha parametros, manda para a tela de login do keycloak
-      window.location.href = this.urlLogin();
-      
-
- 
-
+     this.loginService.gotoLoginPage();
   }
 
 
-  urlLogin(): string{
-    let baseURL = window.location.protocol + '//' + window.location.host;
-    return  environment.keycloakHost
-            + '/auth/realms/principal/protocol/openid-connect/logout?redirect_uri='
-            + environment.keycloakHost
-            + '/auth/realms/principal/protocol/openid-connect/auth?response_type=code%26client_id=ms-dynamic-qrcode%26scope=openid%26redirect_uri='
-            + baseURL + '/login?callback';
-  }
-
+  
 
   handleCallBackLogin(oauthResponse) {
       localStorage.setItem('jwt_token', oauthResponse.access_token);
@@ -91,8 +74,7 @@ export class LoginComponent implements OnInit {
   }
 
   logout(): void {
-      this.loginService.logout();
-      window.location.href = this.urlLogin();
+      this.loginService.gotoLoginPage();
   }
 
 

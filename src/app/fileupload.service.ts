@@ -23,10 +23,8 @@ export class FileUploadService {
   postFile(fileToUpload: File): Observable<HttpEvent<any>> {
  
     const formData: FormData = new FormData();   
-
-  
-
     formData.append('file', fileToUpload); 
+    
     return this.http.post(this.urlUpload, formData, {  
       reportProgress: true,  
       observe: 'events',

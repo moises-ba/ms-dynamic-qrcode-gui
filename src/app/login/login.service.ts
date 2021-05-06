@@ -67,6 +67,21 @@ export class LoginService {
     }
   }
 
+  urlLogin(): string{
+    let baseURL = window.location.protocol + '//' + window.location.host;
+    return  environment.keycloakHost
+            + '/auth/realms/principal/protocol/openid-connect/logout?redirect_uri='
+            + environment.keycloakHost
+            + '/auth/realms/principal/protocol/openid-connect/auth?response_type=code%26client_id=ms-dynamic-qrcode%26scope=openid%26redirect_uri='
+            + baseURL + '/login?callback';
+  }
+
+
+  applyToken(oauth2Resp: OAuth2Response) {
+    localStorage.setItem('jwt_token', oauth2Resp.access_token);
+     localStorage.setItem('refresh_token', oauth2Resp.refresh_token);
+     localStorage.setItem('jwt_refresh_token', oauth2Resp.refresh_token);     
+  }
 
   logout(): void {
      localStorage.removeItem('jwt_token');
@@ -75,6 +90,28 @@ export class LoginService {
   }
 
 
-   
+  gotoLoginPage(): void {
+    this.logout();
+    window.location.href = this.urlLogin();
+  } 
+
+
+  refreshToken(): Observable<OAuth2Response>{
+
+    let headers = new HttpHeaders({
+       'Content-type': 'application/x-www-form-urlencoded'
+    });     
+
+    let param = "client_id=" + environment.oauth2ClientID
+                 + "&grant_type=refresh_token"
+                 + "&refresh_token=" + localStorage.getItem('jwt_refresh_token');
+                
+                 
+    return this.http.post<OAuth2Response>(this.oauth2TokenUrl, param ,{ headers: headers }).pipe(
+            catchError(err => of({})));
+
+  }
+
+
 
 }

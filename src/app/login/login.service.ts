@@ -107,8 +107,7 @@ export class LoginService {
                  + "&refresh_token=" + localStorage.getItem('jwt_refresh_token');
                 
                  
-    return this.http.post<OAuth2Response>(this.oauth2TokenUrl, param ,{ headers: headers }).pipe(
-            catchError(err => of({})));
+    return this.http.post<OAuth2Response>(this.oauth2TokenUrl, param ,{ headers: headers });
 
   }
 

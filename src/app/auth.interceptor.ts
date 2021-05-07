@@ -63,8 +63,13 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
 
 }
 
-private handleError401(request: HttpRequest<any>, next: HttpHandler, error: Error): Observable<HttpEvent<any>> {
-  //if (err.error.message.indexOf('expired') > -1 ) 
+private handleError401(request: HttpRequest<any>, next: HttpHandler, error: any): Observable<HttpEvent<any>> { 
+
+  //se nao for token expirado exibe mensagem
+  if(error?.error?.message?.indexOf('expired') == -1) {
+    alert(error?.error?.message)
+    return EMPTY;
+  }
 
   if(!this.isRefreshingToken) {
     this.isRefreshingToken = true;

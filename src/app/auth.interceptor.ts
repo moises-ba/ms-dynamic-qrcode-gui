@@ -53,10 +53,13 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
 
         return this.handleError400(request, next, err);
 
+      } if(err.status == 404) { 
+         console.log("recurso não encontrado");
+         alert("recurso não encontrado");
       } else {
-         console.log(err);
-         alert(err);
-      } 
+        console.log(err);
+        alert(err);
+     } 
       return EMPTY;
   }) //FIM catchError
  );
@@ -81,7 +84,7 @@ private handleError401(request: HttpRequest<any>, next: HttpHandler, error: any)
               if(res.access_token) {
                 this.loginService.applyToken(res);
                 this.refreshAccessTokenSubject.next(res.access_token)
-                return next.handle(request)
+                return next.handle(this.addToken(request, res.access_token))
               } else {
                 alert("retornou sucesso porem sem o token");
                 // this.loginService.gotoLoginPage();

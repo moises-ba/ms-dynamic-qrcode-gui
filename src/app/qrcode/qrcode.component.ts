@@ -204,6 +204,7 @@ export class QrcodeComponent implements OnInit {
   }
 
   onChangeTab($event: NgbTabChangeEvent): void {
+    this.qrcodeGenerated = null
     this.qrcode.type = $event.nextId;
   }
 

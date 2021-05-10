@@ -122,11 +122,14 @@ private handleError400(request: HttpRequest<any>, next: HttpHandler, err: any): 
         erroMessage = err?.error?.error_description; 
       }
 
-      if(erroMessage && erroMessage.toLowerCase().indexOf("invalid refresh token") != -1){
+      if(erroMessage && 
+        (erroMessage.toLowerCase().indexOf("invalid refresh token") != -1  
+          || erroMessage.toLowerCase().indexOf("token is not active") != -1 
+        )){
         alert("Sessão expirada.");
         this.loginService.gotoLoginPage();
       } else {
-        alert(err)
+        alert("erro retornado: " + erroMessage)
       }
    
   } else {

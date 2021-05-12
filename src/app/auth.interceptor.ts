@@ -57,8 +57,8 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
          console.log("recurso não encontrado");
          alert("recurso não encontrado");
       } else {
-        console.log(err);
-        alert(err);
+        console.log(err?.message);
+        alert(err?.message);
      } 
       return EMPTY;
   }) //FIM catchError
@@ -92,7 +92,7 @@ private handleError401(request: HttpRequest<any>, next: HttpHandler, error: any)
               }                            
             }),
             catchError(err =>{
-              console.log(err); 
+              console.log(err?.message); 
               //this.loginService.gotoLoginPage();
               return EMPTY;
             }),
@@ -136,7 +136,7 @@ private handleError400(request: HttpRequest<any>, next: HttpHandler, err: any): 
       }
    
   } else {
-    alert(err);
+    alert(err?.message);
   } 
   
   

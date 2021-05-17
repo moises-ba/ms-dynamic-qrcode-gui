@@ -104,8 +104,10 @@ export class QrcodeComponent implements OnInit {
      }
  
 
-     this.qrcode.dynamic = false; //default false
+
      let formValue = this.qrCodeForm.value;
+     
+     this.qrcode.dynamic = formValue.dynamic; 
      switch (this.qrcode.type) {
        case "vcard":
          this.qrcode.vcard = new VCardField();
@@ -123,6 +125,7 @@ export class QrcodeComponent implements OnInit {
          this.qrcode.vcard.state = formValue.vcard.state;
          this.qrcode.vcard.country = formValue.vcard.country;
          this.qrcode.vcard.website = formValue.vcard.website;
+         
 
          break;
 
